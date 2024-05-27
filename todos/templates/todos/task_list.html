@@ -1,0 +1,75 @@
+{% extends 'todos/main.html' %} {% block content %}
+<!-- code to make sure we do not need to login from the django admin panel -->
+
+<!-- creating a header bar to hold the c -->
+<div class="header-bar">
+  <div>
+    <!-- here we will display the user name and to make sure that the first letter is capitalized, we will include the pipe symbol '|' followed by 'title' i.e. '|title' -->
+    <h1>Hello {{request.user|title}}</h1>
+    <!-- if the the count of incomplete item is more than one, then we want the word 'item' to be in the plural -->
+    <h3 style="margin: 0">
+      You have <i>{{ count }}</i> incomplete item{{ count|pluralize:"s"}}
+    </h3>
+  </div>
+  {% if request.user.is_authenticated %}
+  <!-- here we will use a miniform to implement the logout button -->
+  <form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+  </form>
+  {% else %}
+  <a href="{% url 'login' %}">Login</a>
+  {% endif %}
+</div>
+
+<!-- in order to display the currently logged in user -->
+<!-- note here that django is using sessions to register users. to view this, we can go to inspect, application and then cookies on the web browser and there we will see the user currently uusing the session under the session table. and deleting the session data will log out the user when the page is refreshed -->
+<!-- <p>{{ request.user }}</p> -->
+
+<!-- Wrapping the search form and add button in a div to style it -->
+<div id="search-add-wrapper">
+  <form method="GET" style="margin-top: 20px; display: flex">
+    <input type="text" name="search-area" value="{{ search_input }}" />
+    <input class="button" type="submit" value="Search" />
+  </form>
+  <a id="add-link" href="{% url 'task-create' %}">&#x2b;</a>
+</div>
+<!-- <a href="{% url 'task-create' %}">Add Task</a>
+<hr />
+<form action="">
+  <input type="text" name="search-area" value="{{ search_input }}" />
+  <input type="submit" value="Search" />
+</form> -->
+
+<!-- Creating a div wrapper for the backlink/ Addlink -->
+<div class="task-item-wrapper">
+  {% for task in tasks %}
+  <!-- here we will create a div for each task item -->
+  <div class="task-wrapper">
+    <!-- here we determin how the task is styled based on wether it is complete or not -->
+    {% if task.complete %}
+    <div class="task-title">
+      <div class="task-complete-icon"></div>
+      <i
+        ><s><a href="{% url 'task-update' task.id %}">{{task}}</a></s></i
+      >
+    </div>
+    <!-- including the delete link with a html back arrow icon '&#215;' Note visit html icons for icon codes -->
+    <a href="{% url 'task-delete' task.id %}" class="delete-link">&#215;</a>
+
+    {% else %}
+    <div class="task-title">
+      <div class="task-incomplete-icon"></div>
+      <a href="{% url 'task-update' task.id %}">{{task}}</a>
+    </div>
+    <!-- including the delete link with a html back arrow icon '&#215;' Note visit html icons for icon codes -->
+    <a href="{% url 'task-delete' task.id %}" class="delete-link">&#215;</a>
+
+    {% endif %}
+  </div>
+  {% empty %}
+  <h3>No items in list</h3>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'todos/main.html' %} {% block content %}
+<!-- after creating the signup page we will need to navigate to the view page to create the view by importing the "formview" as well as the "UserCreationForm" method -->
+<div class="header-bar">
+  <h1>Sign Up</h1>
+</div>
+
+<div class="card-body">
+  <form method="POST">
+    {% csrf_token %}
+    <!-- taking off the instruction text from the form by choosing the way we want the form displayed. so instead of just displaying the form with the form.as_p code below we will label ech form field as done below -->
+    <label>{{ form.username.label }}</label>
+    {{ form.username }}
+
+    <label>{{ form.password1.label }}</label>
+    {{ form.password1 }}
+
+    <label>{{ form.password2.label }}</label>
+    {{ form.password2 }}
+    <input
+      class="button"
+      style="margin-top: 10px"
+      type="submit"
+      value="Login"
+    />
+  </form>
+  <p>Already have an account? <a href="{% url 'login' %}">Register</a></p>
+</div>
+
+{% endblock %}

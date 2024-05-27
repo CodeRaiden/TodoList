@@ -1,0 +1,18 @@
+{% extends 'todos/main.html' %} {% block content %}
+<div class="header-bar">
+  <a href="{% url 'tasks' %}" style="color: #fff; text-decoration: none"
+    >&#8592; Back</a
+  >
+</div>
+
+<div class="card-body">
+  <form method="POST" action="">
+    {% csrf_token %}
+    <!-- then we will paste the form fields of the createview here which is available in the context -->
+    {{ form.as_p }}
+    <!-- note that if this does not display nicely in the browser, we can neatly format it by pulling the attribute '.as_p' frrom the 'form' i.e 'form.as_p' -->
+    <input class="button" type="submit" value="Submit" />
+  </form>
+</div>
+
+{% endblock %}
