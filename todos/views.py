@@ -104,3 +104,5 @@ class DeleteView(LoginRequiredMixin, DeleteView):
 #                 self.request.user.set_task_order(positionList)
 
 #         return redirect(reverse_lazy('tasks'))
+
+# Note also that we no longer require the forms.py file in the todos folder
