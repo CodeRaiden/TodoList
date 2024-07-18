@@ -88,7 +88,7 @@ DATABASES = {
 # RENDER DATABASE: to use the external database url code below we will pip install dj-database-url and then import it at the top of our file
 # postgres://todolistdatabase_l8kg_user:ROOi7z6Ra9walJ9X2ZccEjvj6w397i5e@dpg-cp9tve7109ks73aelkk0-a.oregon-postgres.render.com/todolistdatabase_l8kg
 
-DATABASES["default"] = dj_database_url.parse("postgres://todolistdatabase_l8kg_user:ROOi7z6Ra9walJ9X2ZccEjvj6w397i5e@dpg-cp9tve7109ks73aelkk0-a.oregon-postgres.render.com/todolistdatabase_l8kg")
+DATABASES["default"] = dj_database_url.parse("postgresql://taskdb_render_boab_user:mLiUJZCpXAUgw45QNjNjWiP8k0xOutlP@dpg-cqciofo8fa8c73cr5hlg-a.oregon-postgres.render.com/taskdb_render_boab")
 
 
 
